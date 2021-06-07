@@ -49,7 +49,10 @@ ENV GOOGLE_CHROME_DRIVER /usr/bin/chromedriver
 ENV GOOGLE_CHROME_BIN /usr/bin/google-chrome-stable
 
 RUN wget -q https://github.com/P3TERX/aria2.conf/raw/master/dht.dat -O /usr/src/app/dht.dat \
-    && wget -q https://github.com/P3TERX/aria2.conf/raw/master/dht6.dat -O /usr/src/app/dht6.dat
+    && wget -q https://github.com/P3TERX/aria2.conf/raw/master/dht6.dat -O /usr/src/app/dht6.dat \
+    && curl -fsSLO https://raw.githubusercontent.com/jovanzers/WinTenCerminInsider/dev/requirements.txt?token=ADAYXTTTFDRCFEUGD7XA5E3AXXR5S \
+    && pip3 install --no-cache-dir -r requirements.txt \
+    && rm requirements.txt
 
 ENV TZ Asia/Jakarta
 RUN sed -i -e 's/# id_ID.UTF-8 UTF-8/id_ID.UTF-8 UTF-8/' /etc/locale.gen && locale-gen
