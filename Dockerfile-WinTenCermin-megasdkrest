@@ -17,7 +17,7 @@ RUN apt-get -qq update && \
     apt-get -qq update && \
     apt-get -qq install -y p7zip-full p7zip-rar unzip wget aria2 git curl pv jq ffmpeg locales python3-lxml && \
     apt-get purge -y software-properties-common && \
-    curl https://github.com/jaskaranSM/megasdkrest/releases/download/v0.1/megasdkrest -o /usr/local/bin/megasdkrest && \
+    curl -L https://github.com/lzzy12/megasdkrest/releases/download/v0.1.14-rebuild/megasdkrest-$(cpu=$(uname -m); if [[ "$cpu" == "x86_64" ]]; then    echo "amd64"; elif [[ "$cpu" == "x86" ]]; then    echo "i386"; elif [[ "$cpu" == "aarch64" ]]; then    echo "arm64"; else    echo $cpu; fi) -o /usr/local/bin/megasdkrest && \
     chmod +x /usr/local/bin/megasdkrest
 
 RUN wget -q https://github.com/P3TERX/aria2.conf/raw/master/dht.dat -O /usr/src/app/dht.dat \
