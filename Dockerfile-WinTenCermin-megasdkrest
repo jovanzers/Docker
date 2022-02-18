@@ -1,0 +1,31 @@
+FROM python:3.9.0-slim-buster
+
+WORKDIR /usr/src/app
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get -qq update \
+    && apt-get -qq install -y --no-install-recommends \
+        libcrypto++-dev libssl-dev \
+        libc-ares-dev libcurl4-openssl-dev \
+        libsqlite3-dev libsodium-dev \
+    && apt-get -y autoremove
+
+RUN apt-get -qq update && \
+    apt-get install -y software-properties-common && \
+    rm -rf /var/lib/apt/lists/* && \
+    apt-add-repository non-free && \
+    apt-get -qq update && \
+    apt-get -qq install -y p7zip-full p7zip-rar unzip wget aria2 git curl pv jq ffmpeg locales python3-lxml && \
+    apt-get purge -y software-properties-common && \
+    curl https://github.com/jaskaranSM/megasdkrest/releases/download/v0.1/megasdkrest -o /usr/local/bin/megasdkrest && \
+    chmod +x /usr/local/bin/megasdkrest
+
+RUN wget -q https://github.com/P3TERX/aria2.conf/raw/master/dht.dat -O /usr/src/app/dht.dat \
+    && wget -q https://github.com/P3TERX/aria2.conf/raw/master/dht6.dat -O /usr/src/app/dht6.dat \
+    && apt-get -qq purge git
+
+ENV TZ Asia/Jakarta
+RUN sed -i -e 's/# id_ID.UTF-8 UTF-8/id_ID.UTF-8 UTF-8/' /etc/locale.gen && locale-gen
+ENV LANG id_ID.UTF-8
+ENV LANGUAGE id_ID:id
+ENV LC_ALL id_ID.UTF-8
