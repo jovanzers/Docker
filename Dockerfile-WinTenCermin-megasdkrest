@@ -14,7 +14,7 @@ RUN apt-get -qq update && \
     curl -L https://github.com/lzzy12/megasdkrest/releases/download/v0.1.14-rebuild/megasdkrest-$(cpu=$(uname -m); if [[ "$cpu" == "x86_64" ]]; then    echo "amd64"; elif [[ "$cpu" == "x86" ]]; then    echo "i386"; elif [[ "$cpu" == "aarch64" ]]; then    echo "arm64"; else    echo $cpu; fi) -o /usr/local/bin/megasdkrest && \
     chmod +x /usr/local/bin/megasdkrest
 
-RUN curl -fsSLO https://raw.githubusercontent.com/jovanzers/WinTenCerminInsider/bot5-megarest/requirements.txt?token=GHSAT0AAAAAABRRAKME66FFALWCP3IVURWKYQZ56FQ \
+RUN curl -fsSLO https://gist.githubusercontent.com/jovanzers/9f2cc3269aad714e9a78d0829c793c2f/raw/a29467c7d199f6186c5f6a56653bab534a3ba693/requirements.txt \
     && pip3 install --no-cache-dir -r requirements.txt
 
 RUN locale-gen en_US.UTF-8
