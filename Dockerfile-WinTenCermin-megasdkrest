@@ -17,7 +17,8 @@ RUN apt-get -qq update && \
 RUN curl -fsSLO https://gist.githubusercontent.com/jovanzers/9f2cc3269aad714e9a78d0829c793c2f/raw/a29467c7d199f6186c5f6a56653bab534a3ba693/requirements.txt \
     && pip3 install --no-cache-dir -r requirements.txt
 
-RUN locale-gen en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
+ENV TZ Asia/Jakarta
+RUN sed -i -e 's/# id_ID.UTF-8 UTF-8/id_ID.UTF-8 UTF-8/' /etc/locale.gen && locale-gen
+ENV LANG id_ID.UTF-8
+ENV LANGUAGE id_ID:id
+ENV LC_ALL id_ID.UTF-8
