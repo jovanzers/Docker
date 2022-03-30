@@ -22,8 +22,9 @@ RUN git clone https://github.com/meganz/sdk.git sdk && cd sdk \
     && cd bindings/python/ && python3 setup.py bdist_wheel \
     && cd dist/ && pip3 install --no-cache-dir megasdk-3.11.1-py2.py3-none-any.whl
 
-RUN apt-get -qq update && \
-    apt-get -qq install -y aria2 locales python3-lxml curl pv jq ffmpeg p7zip-full p7zip-rar unzip wget
+RUN apt-add-repository non-free && \
+    apt-get -qq update && \
+    apt-get -qq install -y aria2 locales python3-lxml curl pv jq ffmpeg p7zip-full p7zip-rar wget
 
 RUN wget -q https://github.com/P3TERX/aria2.conf/raw/master/dht.dat -O /usr/src/app/dht.dat \
     && wget -q https://github.com/P3TERX/aria2.conf/raw/master/dht6.dat -O /usr/src/app/dht6.dat \
