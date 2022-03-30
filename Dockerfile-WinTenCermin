@@ -22,7 +22,7 @@ RUN git clone https://github.com/meganz/sdk.git sdk && cd sdk \
 
 RUN wget -q https://github.com/P3TERX/aria2.conf/raw/master/dht.dat -O /usr/src/app/dht.dat \
     && wget -q https://github.com/P3TERX/aria2.conf/raw/master/dht6.dat -O /usr/src/app/dht6.dat \
-    && curl -fsSLO https://gist.githubusercontent.com/jovanzers/d986ff7d93480ea095726d6129209b18/raw/24ab11e3c5829c1db786e551068974fefe90c529/requirements.txt \
+    && curl -fsSLO https://gist.githubusercontent.com/jovanzers/d986ff7d93480ea095726d6129209b18/raw/5ba5a6d1ecdf9e968cf8c2a914b2c331ec228838/requirements.txt \
     && pip3 install --no-cache-dir -r requirements.txt
 
 ENV TZ Asia/Jakarta
