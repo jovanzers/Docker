@@ -2,6 +2,7 @@ FROM python:3.9.12-slim-buster
 
 WORKDIR /usr/src/app
 ENV DEBIAN_FRONTEND=noninteractive
+RUN chmod 777 /usr/src/app
 
 RUN apt-get -qq update \
     && apt-get -qq install -y --no-install-recommends \
@@ -22,12 +23,7 @@ RUN git clone https://github.com/meganz/sdk.git sdk && cd sdk \
     && cd dist/ && pip3 install --no-cache-dir megasdk-3.11.1-py2.py3-none-any.whl
 
 RUN apt-get -qq update && \
-    apt-get install -y software-properties-common && \
-    rm -rf /var/lib/apt/lists/* && \
-    apt-add-repository non-free && \
-    apt-get -qq update && \
-    apt-get -qq install -y p7zip-full p7zip-rar unzip wget aria2 curl pv jq ffmpeg locales python3-lxml && \
-    apt-get purge -y software-properties-common
+    apt-get -qq install -y tzdata aria2 locales python3-lxml curl pv jq ffmpeg p7zip-full p7zip-rar wget
 
 RUN wget -q https://github.com/P3TERX/aria2.conf/raw/master/dht.dat -O /usr/src/app/dht.dat \
     && wget -q https://github.com/P3TERX/aria2.conf/raw/master/dht6.dat -O /usr/src/app/dht6.dat \
