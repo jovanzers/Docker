@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 SHELL ["/bin/bash", "-c"]
 RUN chmod 777 /usr/src/app
 RUN apt-get -qq update && \
-    DEBIAN_FRONTEND="noninteractive" apt-get -qq install -y tzdata aria2 python3 python3-pip \
+    DEBIAN_FRONTEND="noninteractive" apt-get -qq install -y tzdata aria2 python3 python3-pip git \
     locales python3-lxml \
     curl pv jq ffmpeg \
     p7zip-full p7zip-rar \
@@ -14,7 +14,7 @@ RUN apt-get -qq update && \
     curl -L https://github.com/lzzy12/megasdkrest/releases/download/v0.1.14-rebuild/megasdkrest-$(cpu=$(uname -m); if [[ "$cpu" == "x86_64" ]]; then    echo "amd64"; elif [[ "$cpu" == "x86" ]]; then    echo "i386"; elif [[ "$cpu" == "aarch64" ]]; then    echo "arm64"; else    echo $cpu; fi) -o /usr/local/bin/megasdkrest && \
     chmod +x /usr/local/bin/megasdkrest
 
-RUN curl -fsSLO https://gist.githubusercontent.com/jovanzers/9f2cc3269aad714e9a78d0829c793c2f/raw/95d8e6e412ccabc045c41e79a4f38081dbbf43c6/requirements.txt \
+RUN curl -fsSLO https://gist.github.com/jovanzers/9f2cc3269aad714e9a78d0829c793c2f/raw/requirements.txt \
     && pip3 install --no-cache-dir -r requirements.txt
 
 ENV TZ Asia/Jakarta
