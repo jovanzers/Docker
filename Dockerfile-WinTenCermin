@@ -13,25 +13,23 @@ RUN apt-get -qq update \
     && apt-get -y autoremove
 
 # Installing mega sdk python binding
-ENV MEGA_SDK_VERSION '3.11.0'
+ENV MEGA_SDK_VERSION '3.12.2'
 RUN git clone https://github.com/meganz/sdk.git sdk && cd sdk \
     && git checkout v$MEGA_SDK_VERSION \
     && ./autogen.sh && ./configure --disable-silent-rules --enable-python --with-sodium --disable-examples \
     && make -j$(nproc --all) \
     && cd bindings/python/ && python3 setup.py bdist_wheel \
-    && cd dist/ && pip3 install --no-cache-dir megasdk-3.11.1-py2.py3-none-any.whl
+    && cd dist/ && pip3 install --no-cache-dir megasdk-$MEGA_SDK_VERSION-*.whl
 
 RUN apt-get -qq update && \
     apt-get install -y software-properties-common && \
     rm -rf /var/lib/apt/lists/* && \
     apt-add-repository non-free && \
     apt-get -qq update && \
-    apt-get -qq install -y p7zip-full p7zip-rar unzip wget aria2 curl pv jq ffmpeg locales python3-lxml && \
+    apt-get -qq install -y p7zip-full p7zip-rar unzip aria2 curl pv jq ffmpeg locales python3-lxml && \
     apt-get purge -y software-properties-common
 
-RUN wget -q https://github.com/P3TERX/aria2.conf/raw/master/dht.dat -O /usr/src/app/dht.dat \
-    && wget -q https://github.com/P3TERX/aria2.conf/raw/master/dht6.dat -O /usr/src/app/dht6.dat \
-    && curl -fsSLO https://gist.github.com/jovanzers/d986ff7d93480ea095726d6129209b18/raw/66dd4620234f741020ad872ae8d252096ca8bfab/requirements.txt \
+RUN curl -fsSLO https://gist.github.com/jovanzers/d986ff7d93480ea095726d6129209b18/raw/requirements.txt \
     && pip3 install --no-cache-dir -r requirements.txt
 
 ENV TZ Asia/Jakarta
